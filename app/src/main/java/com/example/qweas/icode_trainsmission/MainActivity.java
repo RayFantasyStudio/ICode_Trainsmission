@@ -8,6 +8,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+
+import java.util.List;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.FindListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +32,21 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        BmobQuery<Data> query = new  BmobQuery<Data>();
+        query.setLimit(250);
+        query.findObjects(this, new FindListener<Data>() {
+            @Override
+            public void onSuccess(List<Data> list) {
+                
+
+            }
+
+            @Override
+            public void onError(int i, String s) {
+
+            }
+        });
+
     }
 
     @Override
