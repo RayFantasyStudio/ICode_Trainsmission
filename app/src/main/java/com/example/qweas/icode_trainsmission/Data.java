@@ -70,5 +70,4 @@ public class Data extends BmobObject {
             this.jing = jing;
         }
 
-
 }

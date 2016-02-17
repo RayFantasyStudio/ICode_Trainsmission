@@ -9,9 +9,11 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.List;
 
+import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
 
@@ -23,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        Bmob.initialize(this,"c3a19f60b3fee3184a271574e6e8d4f9");
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,18 +34,25 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        BmobQuery<Data> query = new  BmobQuery<Data>();
-        query.setLimit(250);
+
+        BmobQuery<Data> query = new  BmobQuery<>();
+        query.setLimit(10);
+        query.order("-createdAt");
         query.findObjects(this, new FindListener<Data>() {
             @Override
-            public void onSuccess(List<Data> list) {
-                
+            public void onSuccess(List<Data> result) {
+               /* for (Integer i = 0;i <= result.size();i++){
+                    Data data = result.get(i);
 
+                }*/
+                TextView textView = (TextView) findViewById(R.id.textView);
+                textView.setText(result.size());
             }
 
             @Override
             public void onError(int i, String s) {
-
+                TextView textView = (TextView) findViewById(R.id.textView);
+                textView.setText("查询失败         " + i);
             }
         });
 
